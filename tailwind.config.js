@@ -5,7 +5,7 @@ module.exports = {
     extend: { 
       colors: { primary: "#0080ff" },
       fontFamily: {
-        'arabic': ['Sakkal Majalla', 'Traditional Arabic', 'Arabic Typesetting', 'Arial', 'sans-serif'],
+        'arabic': ['Amiri', 'Traditional Arabic', 'Arabic Typesetting', 'serif'],
       },
     },
   },
