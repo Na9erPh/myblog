@@ -4,7 +4,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>مدوّنتي</title>
+        <title>ناصر سلمان</title>
         <meta name="description" content="مدوّنة Next.js + Tailwind" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,7 +15,7 @@ export default function Layout({ children }) {
       </Head>
 
       <header className="bg-primary text-white p-4 text-center">
-        <h1 className="text-2xl font-bold">مدوّنتي التجريبية</h1>
+        <h1 className="text-2xl font-bold">ناصر سلمان</h1>
       </header>
 
       <main className="container mx-auto p-4 text-right">{children}</main>
