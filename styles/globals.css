@@ -4,22 +4,133 @@
 
 html {
   direction: rtl;
+  scroll-behavior: smooth;
+  font-size: 18px;
 }
 
 body {
   font-family: "Amiri", "Traditional Arabic", "Arabic Typesetting", serif;
   text-align: justify;
   text-align-last: right;
+  line-height: 1.8;
+  font-size: 1.1rem;
 }
 
-/* تحسين مظهر المعادلات */
+/* تحسين الـ toolbar */
+.toolbar {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* تحسين شريط التمرير للـ range input */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-track {
+  background: #d1d5db;
+  height: 4px;
+  border-radius: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #2563eb;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #1d4ed8;
+}
+
+.dark input[type="range"]::-webkit-slider-track {
+  background: #4b5563;
+}
+
+.dark input[type="range"]::-webkit-slider-thumb {
+  background: #3b82f6;
+}
+
+/* تحسين الأزرار */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* تحسين المعادلات */
 .katex-display {
   margin: 1.5rem 0 !important;
   text-align: center !important;
+  direction: ltr !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
 }
 
 .katex {
   font-size: 1.1em !important;
+  direction: ltr !important;
+}
+
+/* إصلاح المعادلات المضمنة */
+.katex-html {
+  direction: ltr !important;
+}
+
+/* تأكد من أن المعادلات تبدأ من اليسار */
+.katex .base {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* إصلاح محاذاة المعادلات في النص العربي */
+p .katex {
+  direction: ltr !important;
+  display: inline-block !important;
+}
+
+/* تحسين عرض المعادلات المعقدة */
+.katex .mord, .katex .mop, .katex .mbin, .katex .mrel, .katex .mopen, .katex .mclose, .katex .mpunct {
+  direction: ltr !important;
+}
+
+/* إصلاح عرض المعادلات في البيئات المختلفة */
+.katex-display > .katex {
+  text-align: center !important;
+  direction: ltr !important;
+}
+
+/* تأكد من أن المعادلات الطويلة تتوسط */
+.katex .katex-html {
+  direction: ltr !important;
+  unicode-bidi: embed !important;
+}
+
+/* إصلاح الأرقام والرموز الرياضية */
+.katex .mathnormal, .katex .mathit, .katex .mathrm, .katex .mathsf, .katex .mathtt {
+  direction: ltr !important;
+}
+
+/* تحسين عرض الكسور والجذور */
+.katex .frac-line, .katex .sqrt-line, .katex .sqrt-sign {
+  direction: ltr !important;
+}
+
+/* إصلاح المصفوفات والجداول الرياضية */
+.katex .mtable, .katex .arraycolsep, .katex .col-align-c, .katex .col-align-l, .katex .col-align-r {
+  direction: ltr !important;
 }
 
 /* تحسين النص في المقالات */
@@ -27,8 +138,391 @@ body {
   text-align: justify;
   text-align-last: right;
   line-height: 1.8;
+  margin-bottom: 1.5rem;
 }
 
 .prose h1, .prose h2, .prose h3 {
   text-align: right;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.prose h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.prose h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* تحسين عرض القوائم */
+.prose ul, .prose ol {
+  margin: 1.5rem 0;
+  padding-right: 2rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+}
+
+/* تحسين الاقتباسات */
+.prose blockquote {
+  border-right: 4px solid #e5e7eb;
+  padding-right: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.dark .prose blockquote {
+  border-right-color: #6b7280;
+  background-color: #374151;
+}
+
+/* تحسين النص في المحتوى الرئيسي */
+main {
+  min-height: calc(100vh - 200px);
+}
+
+main > div {
+  font-weight: 400;
+  color: inherit;
+}
+
+/* تحسين النمط الليلي */
+.dark {
+  color-scheme: dark;
+}
+
+.dark .prose {
+  color: #e5e7eb;
+}
+
+.dark .prose h1, 
+.dark .prose h2, 
+.dark .prose h3 {
+  color: #f3f4f6;
+}
+
+.dark .prose p {
+  color: #d1d5db;
+}
+
+.dark .prose strong {
+  color: #f9fafb;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.dark::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* تحسين الانتقالات */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* تحسين الروابط */
+a {
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  transition: all 0.3s ease;
+}
+
+/* تحسين النماذج */
+select, input {
+  transition: all 0.3s ease;
+}
+
+select:focus, input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* تحسين البطاقات */
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+/* تحسين responsive */
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  aside {
+    width: 100%;
+    min-height: auto;
+  }
+  
+  .flex {
+    flex-direction: column;
+  }
+  
+  main {
+    padding: 1rem;
+  }
+}
+
+/* خطوط Google الجديدة */
+.font-arabic {
+  font-family: 'Amiri', 'Traditional Arabic', 'Arabic Typesetting', serif;
+}
+
+.font-cairo {
+  font-family: 'Cairo', sans-serif;
+}
+
+.font-tajawal {
+  font-family: 'Tajawal', sans-serif;
+}
+
+.font-almarai {
+  font-family: 'Almarai', sans-serif;
+}
+
+.font-noto {
+  font-family: 'Noto Sans Arabic', sans-serif;
+}
+
+/* تحسين المحتوى الرئيسي */
+main {
+  min-height: calc(100vh - 200px);
+}
+
+main > div {
+  font-weight: 400;
+  color: inherit;
+}
+
+/* تحسين المقالات في النمط الليلي */
+.dark .prose {
+  color: #e5e7eb;
+}
+
+.dark .prose h1, 
+.dark .prose h2, 
+.dark .prose h3 {
+  color: #f3f4f6;
+}
+
+.dark .prose p {
+  color: #d1d5db;
+}
+
+.dark .prose strong {
+  color: #f9fafb;
+}
+
+/* Custom scrollbar for dark mode */
+.dark::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 4px;
+}
+
+.dark::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* تحسين تجربة القراءة */
+article {
+  max-width: none !important;
+  text-align: justify;
+  text-align-last: right;
+}
+
+/* تحسين الأزرار */
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* تحسين البطاقات */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* تحسين الجرادينت */
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradient 6s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* تحسين ظهور العناصر */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* تحسين الشريط الجانبي */
+.sidebar-item {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.sidebar-item:hover::before {
+  left: 100%;
+}
+
+/* تحسين أدوات القراءة */
+.reading-controls {
+  transition: all 0.2s ease;
+}
+
+/* تحسين النصوص المتحركة */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    currentColor 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    currentColor 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* تحسين المتجاوبية */
+@media (max-width: 768px) {
+  .reading-controls {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    left: 20px !important;
+    z-index: 50;
+  }
+  
+  .sidebar-mobile {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    transition: right 0.3s ease;
+    z-index: 40;
+  }
+  
+  .sidebar-mobile.open {
+    right: 0;
+  }
+}
+
+/* تحسين الخطوط المختلفة */
+.font-amiri {
+  font-family: 'Amiri', 'Traditional Arabic', 'Arabic Typesetting', serif !important;
+}
+
+.font-cairo {
+  font-family: 'Cairo', sans-serif !important;
+}
+
+.font-tajawal {
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+.font-almarai {
+  font-family: 'Almarai', sans-serif !important;
+}
+
+.font-noto-sans-arabic {
+  font-family: 'Noto Sans Arabic', sans-serif !important;
 } 
