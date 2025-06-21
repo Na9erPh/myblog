@@ -8,5 +8,27 @@ html {
 
 body {
   font-family: "Amiri", "Traditional Arabic", "Arabic Typesetting", serif;
+  text-align: justify;
+  text-align-last: right;
+}
+
+/* تحسين مظهر المعادلات */
+.katex-display {
+  margin: 1.5rem 0 !important;
+  text-align: center !important;
+}
+
+.katex {
+  font-size: 1.1em !important;
+}
+
+/* تحسين النص في المقالات */
+.prose p {
+  text-align: justify;
+  text-align-last: right;
+  line-height: 1.8;
+}
+
+.prose h1, .prose h2, .prose h3 {
   text-align: right;
 } 
