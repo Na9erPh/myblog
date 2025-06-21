@@ -1,12 +1,48 @@
 # مدونة Next.js مع Decap CMS
 
-مشروع مدونة ثابتة باستخدام Next.js 14 مع لوحة تحكم Decap CMS.
+مشروع مدونة ثابتة باستخدام Next.js 14 مع Tailwind CSS ولوحة تحكم Decap CMS.
 
 ## التثبيت والتشغيل
 
 ```bash
 npm install
 npm run dev
+```
+
+## تثبيت Tailwind CSS
+
+```bash
+npm i -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+## تخصيص الألوان
+
+عدّل ملف `tailwind.config.js` لتغيير اللون الأساسي:
+
+```js
+theme: {
+  extend: { 
+    colors: { 
+      primary: "#ff6b6b" // غيّر هذا اللون حسب رغبتك
+    } 
+  },
+}
+```
+
+## إضافة مقالات جديدة
+
+1. أنشئ ملف `.md` جديد في مجلد `posts/`
+2. أضف Front Matter في بداية الملف:
+
+```markdown
+---
+title: "عنوان المقال"
+excerpt: "وصف مختصر للمقال"
+---
+
+## المحتوى
+اكتب محتوى المقال هنا...
 ```
 
 ## النشر على Netlify

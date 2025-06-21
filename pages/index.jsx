@@ -1,56 +1,25 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import Link from 'next/link';
+import Link from "next/link";
+import { getAllSlugs, getPostBySlug } from "../lib/mdx";
+
+export async function getStaticProps() {
+  const slugs = await getAllSlugs();
+  const posts = await Promise.all(slugs.map(getPostBySlug));
+  return { props: { posts } };
+}
 
 export default function Home({ posts }) {
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <h1>مدونتي</h1>
-      <div>
-        {posts.map((post) => (
-          <div key={post.slug} style={{ marginBottom: '20px', borderBottom: '1px solid #eee', paddingBottom: '20px' }}>
-            <h2>
-              <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: '#0070f3' }}>
-                {post.title}
-              </Link>
-            </h2>
-          </div>
-        ))}
-      </div>
-    </div>
+    <section className="space-y-8">
+      {posts.map(({ frontMatter }) => (
+        <article key={frontMatter.title}>
+          <h2 className="text-2xl font-bold">
+            <Link href={`/blog/${frontMatter.slug || frontMatter.title}`}>
+              {frontMatter.title}
+            </Link>
+          </h2>
+          <p className="text-gray-600">{frontMatter.excerpt}</p>
+        </article>
+      ))}
+    </section>
   );
-}
-
-export async function getStaticProps() {
-  const postsDirectory = path.join(process.cwd(), 'posts');
-  
-  let filenames = [];
-  try {
-    filenames = fs.readdirSync(postsDirectory);
-  } catch (error) {
-    // مجلد posts غير موجود بعد
-    return {
-      props: {
-        posts: []
-      }
-    };
-  }
-
-  const posts = filenames.map((name) => {
-    const filePath = path.join(postsDirectory, name);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
-    
-    return {
-      slug: name.replace(/\.md$/, ''),
-      title: data.title || 'بدون عنوان'
-    };
-  });
-
-  return {
-    props: {
-      posts
-    }
-  };
 } 
