@@ -2,6 +2,8 @@ import { MDXRemote } from "next-mdx-remote";
 import { getAllSlugs, getPostBySlug } from "../../lib/mdx";
 import Link from "next/link";
 import Layout from "../../components/Layout";
+import ShareButton from "../../components/ShareButton";
+import { useState, useEffect } from "react";
 
 const components = {
   h1: (props) => (
@@ -49,12 +51,40 @@ export async function getStaticProps({ params }) {
 }
 
 export default function PostPage({ frontMatter, mdxSource, posts }) {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("darkMode");
+    if (savedTheme) setDarkMode(JSON.parse(savedTheme));
+    
+    // مراقبة تغييرات الوضع الليلي
+    const observer = new MutationObserver(() => {
+      setDarkMode(document.documentElement.classList.contains('dark'));
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <Layout posts={posts}>
       <article className="max-w-none mx-auto">
-        <Link href="/" className="inline-block mb-8 text-blue-500 dark:text-blue-400 hover:underline text-sm">
-          ← العودة للرئيسية
-        </Link>
+        <div className="flex justify-between items-start mb-8">
+          <Link href="/" className="inline-block text-blue-500 dark:text-blue-400 hover:underline text-sm">
+            ← العودة للرئيسية
+          </Link>
+          
+          {/* زر المشاركة */}
+          <ShareButton 
+            title={frontMatter.title}
+            slug={frontMatter.slug}
+            darkMode={darkMode}
+          />
+        </div>
         
         <header className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-6 text-blue-500 dark:text-blue-400">{frontMatter.title}</h1>
