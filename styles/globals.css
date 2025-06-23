@@ -252,23 +252,96 @@ main > div {
   background: #9ca3af;
 }
 
-/* تحسين الانتقالات - سرعة أكبر */
-* {
-  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
-}
-
-/* تحسين الأداء للوضع الليلي */
-html {
-  transition: none !important;
-}
-
-.dark {
-  transition: none !important;
-}
-
 /* تحسين الانتقالات للعناصر المحددة فقط */
 .theme-transition {
   transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* انتقالات فقط للعناصر التفاعلية */
+button, a, select, input, .theme-switch label, .sidebar-item, .card-hover {
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+/* Theme Switch Styles */
+.theme-switch {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  direction: rtl;
+}
+
+#theme-checkbox,
+#theme-checkbox-reading {
+  display: none;
+}
+
+#theme-checkbox + label,
+#theme-checkbox-reading + label {
+  /* change the font-size below to change the size of the switch button*/
+  font-size: 2rem;
+  height: 1em;
+  width: 2.5em;
+  border-radius: 0.25em;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  background-color: #cecece;
+  position: relative;
+}
+
+#theme-checkbox:checked + label,
+#theme-checkbox-reading:checked + label {
+  background-color: #3a3a3a;
+}
+
+#theme-checkbox + label:active,
+#theme-checkbox-reading + label:active {
+  transform: scale(0.85);
+  transition: transform 0.2s;
+}
+
+#theme-checkbox + label div,
+#theme-checkbox-reading + label div {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: inherit;
+  position: absolute;
+  top: 0.1em;
+  left: 0.1em;
+  z-index: 10;
+  transition: 0.5s cubic-bezier(1, 0.33, 0.11, 1.34);
+  background-color: #f2f2f2;
+}
+
+#theme-checkbox:checked + label div,
+#theme-checkbox-reading:checked + label div {
+  /* left: calc(2.5em - .8em - .1em); */
+  left: 1.6em;
+  background-color: #212121;
+}
+
+#theme-checkbox + label span,
+#theme-checkbox-reading + label span {
+  display: flex;
+}
+
+#theme-checkbox + label svg,
+#theme-checkbox-reading + label svg {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  padding: 0.15em;
+  box-sizing: border-box;
+}
+
+#theme-checkbox + label span:first-of-type,
+#theme-checkbox-reading + label span:first-of-type {
+  color: #3a3a3a;
+}
+
+#theme-checkbox + label span:last-of-type,
+#theme-checkbox-reading + label span:last-of-type {
+  color: #cecece;
 }
 
 /* تحسين الروابط */
@@ -653,4 +726,225 @@ button:hover {
 /* التأكد من أن prose لا يتداخل */
 .prose, .prose * {
   font-size: inherit !important;
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 4s ease-in-out infinite;
+}
+
+/* Floating animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-15px) rotate(-2deg);
+  }
+  66% {
+    transform: translateY(-25px) rotate(1deg);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(3deg);
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 12s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 15s ease-in-out infinite;
+}
+
+/* Pulse soft animation */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+/* Fade in up animation */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Glassmorphism enhancements */
+.backdrop-blur-sm {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Smooth transitions for all interactive elements */
+.group {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced Toolbar Styles */
+.reading-toolbar {
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+/* Enhanced Slider Styles */
+.slider-light::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #0d9488);
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.slider-light::-webkit-slider-thumb:hover {
+  background: linear-gradient(135deg, #059669, #0f766e);
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4), 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.slider-light::-webkit-slider-track {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #d1fae5, #a7f3d0);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.slider-dark::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #34d399, #10b981);
+  cursor: pointer;
+  border: 3px solid #1e293b;
+  box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-dark::-webkit-slider-thumb:hover {
+  background: linear-gradient(135deg, #6ee7b7, #34d399);
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(52, 211, 153, 0.4), 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.slider-dark::-webkit-slider-track {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #475569, #64748b);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+/* Firefox slider styles */
+.slider-light::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #0d9488);
+  border: 3px solid white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  cursor: pointer;
+}
+
+.slider-dark::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #34d399, #10b981);
+  border: 3px solid #1e293b;
+  box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3);
+  cursor: pointer;
+}
+
+/* Enhanced button hover effects */
+.reading-toolbar button:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.reading-toolbar button:active {
+  transform: scale(0.95) !important;
+}
+
+/* Enhanced glassmorphism effect */
+.reading-toolbar > div > div {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Toolbar container enhancement */
+.reading-toolbar .p-3,
+.reading-toolbar .p-4 {
+  position: relative;
+  overflow: hidden;
+}
+
+.reading-toolbar .p-3::before,
+.reading-toolbar .p-4::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.reading-toolbar .p-3:hover::before,
+.reading-toolbar .p-4:hover::before {
+  left: 100%;
 } 

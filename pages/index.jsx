@@ -11,52 +11,22 @@ export async function getStaticProps() {
 export default function Home({ posts }) {
   return (
     <Layout posts={posts}>
-      <div className="min-h-screen">
-        {/* Clean Welcome Section */}
-        <div className="text-center py-12">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">
-              مرحباً بك في مدونتي
-            </h2>
-            <p className="text-lg leading-relaxed max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
-              اختر مقالاً من الشريط الجانبي للقراءة، أو استخدم أدوات التحكم لتخصيص تجربة القراءة.
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-all duration-1000 relative overflow-hidden">
+        {/* Floating Shapes Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 dark:from-emerald-800/20 dark:to-teal-800/20 rounded-full animate-float"></div>
+          <div className="absolute top-1/3 -left-20 w-96 h-96 bg-gradient-to-br from-cyan-200/20 to-blue-200/20 dark:from-cyan-800/15 dark:to-blue-800/15 rounded-full animate-float-delayed"></div>
+          <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-gradient-to-br from-teal-200/25 to-emerald-200/25 dark:from-teal-800/15 dark:to-emerald-800/15 rounded-full animate-float-slow"></div>
+        </div>
+
+        {/* Main Content - Empty Center Area */}
+        <div className="relative z-10 flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <p className="text-lg md:text-xl text-slate-400 dark:text-slate-500 opacity-60">
+              سيتم عرض المقال هنا
             </p>
           </div>
-          
-          {/* Simple line */}
-          <div className="w-16 h-0.5 bg-gray-300 dark:bg-gray-600 mx-auto mb-8"></div>
         </div>
-        
-        {/* Simple Articles List */}
-        {posts.length > 0 && (
-          <div className="py-8">
-            <h3 className="text-xl font-semibold mb-6 text-gray-800 dark:text-white text-center">
-              المقالات المتاحة
-            </h3>
-            <div className="space-y-4 max-w-2xl mx-auto">
-              {posts.slice(0, 5).map(({ frontMatter }) => (
-                <article key={frontMatter.title} className="border-b border-gray-200 dark:border-gray-700 pb-4 last:border-b-0">
-                  <h4 className="text-lg font-medium mb-2 text-blue-600 dark:text-blue-400 hover:underline">
-                    <Link href={`/blog/${frontMatter.slug || frontMatter.title}`}>
-                      {frontMatter.title}
-                    </Link>
-                  </h4>
-                  {frontMatter.excerpt && (
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      {frontMatter.excerpt}
-                    </p>
-                  )}
-                </article>
-              ))}
-            </div>
-            
-            {posts.length > 5 && (
-              <p className="text-center mt-6 text-gray-500 dark:text-gray-400 text-sm">
-                والمزيد في الشريط الجانبي...
-              </p>
-            )}
-          </div>
-        )}
       </div>
     </Layout>
   );

@@ -141,48 +141,31 @@ export default function ReadingPage({ frontMatter, mdxSource }) {
 
       <div className={`min-h-screen ${darkMode ? "dark bg-gray-900" : "bg-white"}`}>
         
-        {/* Dark Mode Toggle - Fixed Position */}
-        <div className="fixed top-4 right-4 z-50">
-          <button
-            onClick={toggleDarkMode}
-            className={`group relative overflow-hidden rounded-full p-3 transition-all duration-150 transform hover:scale-105 active:scale-95 ${
-              darkMode 
-                ? "bg-yellow-400 text-gray-900 shadow-lg shadow-yellow-400/30" 
-                : "bg-gray-800 text-white shadow-lg shadow-gray-800/30"
-            }`}
-          >
-            <div className="relative z-10 transition-transform duration-100">
-              {darkMode ? (
-                <svg className="w-6 h-6 transition-all duration-100" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6 transition-all duration-100" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
-              )}
-            </div>
-            <div className="absolute inset-0 bg-white/20 rounded-full scale-0 group-active:scale-110 transition-transform duration-150"></div>
-          </button>
-        </div>
-
         {/* Reading Controls - أعلى الصفحة */}
-        <div className={`sticky top-0 z-40 ${darkMode ? "bg-gray-700" : "bg-gray-100"} border-b shadow-md`}>
-          <div className="px-6 py-4">
-            <div className="flex items-center justify-center gap-8 flex-wrap max-w-4xl mx-auto">
+        <div className={`sticky top-0 z-40 backdrop-blur-lg ${
+          darkMode 
+            ? "bg-slate-800/90 border-slate-700/50" 
+            : "bg-white/90 border-emerald-200/50"
+        } border-b shadow-lg shadow-emerald-500/5 dark:shadow-slate-900/20`}>
+          <div className="px-6 py-5">
+            <div className="flex items-center justify-center gap-6 flex-wrap max-w-4xl mx-auto">
               
               {/* اختيار الخط */}
-              <div className="flex items-center gap-3">
-                <label className={`text-sm font-medium ${darkMode ? "text-gray-200" : "text-gray-600"}`}>
+              <div className={`flex items-center gap-3 p-3 rounded-2xl ${
+                darkMode 
+                  ? "bg-gradient-to-r from-slate-700/80 to-slate-600/80 shadow-lg shadow-slate-900/20" 
+                  : "bg-gradient-to-r from-emerald-50/80 to-teal-50/80 shadow-md shadow-emerald-500/10"
+              } backdrop-blur-sm border border-white/20 dark:border-slate-600/30`}>
+                <label className={`text-sm font-medium ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
                   نوع الخط:
                 </label>
                 <select 
                   value={fontFamily} 
                   onChange={(e) => changeFontFamily(e.target.value)}
-                  className={`text-sm px-3 py-2 border rounded-lg transition-all duration-200 focus:ring-2 focus:ring-blue-500 ${
+                  className={`text-sm px-3 py-2 border rounded-lg transition-all duration-200 focus:ring-2 focus:ring-emerald-500 ${
                     darkMode 
-                      ? "bg-gray-600 text-white border-gray-500 hover:bg-gray-500" 
-                      : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
+                      ? "bg-slate-600 text-white border-slate-500 hover:bg-slate-500" 
+                      : "bg-white text-gray-700 border-gray-300 hover:border-emerald-300"
                   }`}
                 >
                   {fonts.map(font => (
@@ -191,57 +174,83 @@ export default function ReadingPage({ frontMatter, mdxSource }) {
                 </select>
               </div>
               
-              {/* تحكم في حجم الخط */}
-              <div className="flex items-center gap-4">
-                <label className={`text-sm font-medium ${darkMode ? "text-gray-200" : "text-gray-600"}`}>
-                  حجم الخط: <span className="font-bold text-blue-500">{fontSize}px</span>
-                </label>
+              {/* تحكم في الإعدادات - النمط الليلي وحجم الخط */}
+              <div className={`flex items-center gap-4 p-3 rounded-2xl ${
+                darkMode 
+                  ? "bg-gradient-to-r from-slate-700/80 to-slate-600/80 shadow-lg shadow-slate-900/20" 
+                  : "bg-gradient-to-r from-emerald-50/80 to-teal-50/80 shadow-md shadow-emerald-500/10"
+              } backdrop-blur-sm border border-white/20 dark:border-slate-600/30`}>
                 
+                {/* زر النمط الليلي */}
+                <button 
+                  onClick={toggleDarkMode}
+                  className={`w-8 h-8 rounded-lg transition-all duration-200 flex items-center justify-center ${
+                    darkMode
+                      ? "bg-yellow-500 text-yellow-900 hover:bg-yellow-400 active:scale-95"
+                      : "bg-slate-700 text-slate-200 hover:bg-slate-600 active:scale-95"
+                  }`}
+                  title={darkMode ? "تبديل للنمط النهاري" : "تبديل للنمط الليلي"}
+                >
+                  {darkMode ? (
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"></path>
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path fillRule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clipRule="evenodd"></path>
+                    </svg>
+                  )}
+                </button>
+                
+                {/* فاصل */}
+                <div className={`w-px h-6 ${darkMode ? "bg-slate-600" : "bg-gray-300"}`}></div>
+                
+                {/* أيقونة الخط */}
+                <div className={`p-1 rounded ${
+                  darkMode 
+                    ? "text-emerald-400" 
+                    : "text-emerald-600"
+                }`}>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                
+                {/* عرض حجم الخط الحالي */}
+                <span className={`text-sm font-medium ${
+                  darkMode ? "text-slate-200" : "text-slate-700"
+                }`}>
+                  {fontSize}px
+                </span>
+                
+                {/* أزرار التحكم في حجم الخط */}
                 <div className="flex items-center gap-2">
                   <button 
                     onClick={decreaseFontSize}
                     disabled={fontSize <= 18}
-                    className={`w-8 h-8 rounded-full font-bold transition-all duration-200 flex items-center justify-center ${
+                    className={`w-8 h-8 rounded-lg font-bold transition-all duration-200 flex items-center justify-center text-lg ${
                       fontSize <= 18 
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed" 
                         : darkMode
-                          ? "bg-gray-600 text-white hover:bg-gray-500 active:scale-95"
-                          : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 active:scale-95"
+                          ? "bg-slate-600 text-white hover:bg-slate-500 active:scale-95"
+                          : "bg-white text-gray-700 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300 active:scale-95"
                     }`}
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                    </svg>
+                    −
                   </button>
-                  
-                  <input
-                    type="range"
-                    min="18"
-                    max="32"
-                    step="2"
-                    value={fontSize}
-                    onChange={(e) => {
-                      const newSize = parseInt(e.target.value);
-                      setFontSize(newSize);
-                      localStorage.setItem("fontSize", newSize.toString());
-                    }}
-                    className="w-20 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer slider"
-                  />
                   
                   <button 
                     onClick={increaseFontSize}
                     disabled={fontSize >= 32}
-                    className={`w-8 h-8 rounded-full font-bold transition-all duration-200 flex items-center justify-center ${
+                    className={`w-8 h-8 rounded-lg font-bold transition-all duration-200 flex items-center justify-center text-lg ${
                       fontSize >= 32 
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed" 
                         : darkMode
-                          ? "bg-gray-600 text-white hover:bg-gray-500 active:scale-95"
-                          : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 active:scale-95"
+                          ? "bg-slate-600 text-white hover:bg-slate-500 active:scale-95"
+                          : "bg-white text-gray-700 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300 active:scale-95"
                     }`}
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
+                    +
                   </button>
                 </div>
               </div>
